@@ -1,1 +1,0 @@
-bash: /home/godheadkevin/Android/Sdk/emulator/emulator: No such file or directory
