@@ -57,14 +57,15 @@ thinc==8.2.1
 toolz 
 tqdm 
 typer==0.9.0
-typing_extensions==4.8.0
+typing_extensions==4.16.10
 urllib3 
 wasabi==1.1.2
 wcwidth==0.2.9
 weasel==0.3.3
 zstandard 
 hydra-core
-gradio
+gradio==4.43.0
+gradio_client==1.3.0
 torch
 transformers==4.37.2
 accelerate
