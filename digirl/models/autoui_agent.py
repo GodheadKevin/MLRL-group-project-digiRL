@@ -186,4 +186,3 @@ class AutoUIAgent(torch.nn.Module):
         )
         # import IPython; IPython.embed(); exit()
         return torch.log(selected_prediction_probs) * action_ids["attention_mask"]
-
