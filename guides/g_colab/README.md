@@ -128,6 +128,9 @@ Inside your SSH session, use `uv` to maintain a standalone Python virtual enviro
    uv pip install -e .
    ```
 
+8. **(Optional) Set PYTHONPATH:**
+   ```bash
+   export PYTHONPATH="/content/MLRL-group-project-digiRL:$PYTHONPATH"
 ---
 
 ## 5. Automated Local-to-Remote File Synchronization
