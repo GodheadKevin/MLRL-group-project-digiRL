@@ -1,28 +1,27 @@
+import os
+from datetime import timedelta
+
+import hydra
 import transformers
-from tqdm import tqdm
+import wandb
+from accelerate import (
+    Accelerator,
+    DistributedDataParallelKwargs,
+    InitProcessGroupKwargs,
+)
+from omegaconf import DictConfig, OmegaConf
+
+from digirl.algorithms import eval_loop, offpolicy_train_loop, worker_collect_loop
 from digirl.environment import BatchedAndroidEnv
-from digirl.models import AutoUIAgent, CogAgent
-from digirl.algorithms import offpolicy_train_loop, eval_loop, worker_collect_loop
-from digirl.misc import colorful_print
-from digirl.environment.android import EndResultEvaluator
 from digirl.environment.android import (
+    EndResultEvaluator,
     autoui_translate_action,
     cogagent_translate_action,
 )
-import torch.nn as nn
-import numpy as np
-import wandb
-from omegaconf import DictConfig, OmegaConf
-import os
-import hydra
-from accelerate import Accelerator
-from datetime import timedelta
-from accelerate import DistributedDataParallelKwargs, InitProcessGroupKwargs
+from digirl.misc import colorful_print
+from digirl.models import AutoUIAgent, CogAgent
 
 transformers.logging.set_verbosity_error()
-
-import torch.distributed as dist
-import datetime
 
 
 def load_task_file(assets_path, task_set, task_split):
