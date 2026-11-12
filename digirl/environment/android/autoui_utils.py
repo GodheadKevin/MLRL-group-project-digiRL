@@ -1,7 +1,12 @@
 from enum import Enum
 from dataclasses import dataclass
 from typing import List, Tuple, Union
-from transformers import Blip2VisionModel, AutoProcessor, Blip2Model
+from transformers import (
+    Blip2Model,
+    Blip2Processor,
+    BlipImageProcessor,
+    GPT2Tokenizer,
+)
 import torch
 from PIL import Image
 
@@ -14,7 +19,14 @@ class ImageFeatureExtractor:
         self.model = Blip2Model.from_pretrained("Salesforce/blip2-opt-2.7b").cpu()
         self.model.language_model = None
         # self.model = self.model.to(self.device)
-        self.processor = AutoProcessor.from_pretrained("Salesforce/blip2-opt-2.7b")
+        self.processor = Blip2Processor(
+            image_processor=BlipImageProcessor.from_pretrained(
+                "Salesforce/blip2-opt-2.7b", local_files_only=True
+            ),
+            tokenizer=GPT2Tokenizer.from_pretrained(
+                "Salesforce/blip2-opt-2.7b", local_files_only=True
+            ),
+        )
 
     def to_feat(self, image: Image.Image):
         """Converts a PIL image to a feature representation using the BLIP2 model.
